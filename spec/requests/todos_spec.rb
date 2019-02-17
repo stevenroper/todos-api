@@ -48,7 +48,7 @@ RSpec.describe 'Todos API', type: :request do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find Todo/)
+        expect(response.body).to match(Message.not_found)
       end
     end
   end
@@ -95,11 +95,11 @@ RSpec.describe 'Todos API', type: :request do
       before { put "/todos/#{todo_id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
-        expect(response.body).to be_empty
+        expect(json['title']).to eql('Shopping')
       end
 
       it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(202)
       end
     end
   end

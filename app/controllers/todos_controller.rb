@@ -20,8 +20,8 @@ class TodosController < ApplicationController
 
   # PUT /todos/:id
   def update
-    @todo.update(todo_params)
-    head :no_content
+    @todo.update!(todo_params)
+    json_response(@todo, :accepted)
   end
 
   # DELETE /todos/:id
@@ -38,5 +38,6 @@ class TodosController < ApplicationController
 
   def set_todo
     @todo = Todo.find(params[:id])
+    raise(ExceptionHandler::NotFound) if @todo.created_by != current_user.id.to_s
   end
 end
