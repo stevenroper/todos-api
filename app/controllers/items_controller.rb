@@ -38,6 +38,7 @@ class ItemsController < ApplicationController
 
   def set_todo
     @todo = Todo.find(params[:todo_id])
+    raise(ExceptionHandler::NotFound) if @todo.created_by != current_user.id.to_s
   end
 
   def set_todo_item
