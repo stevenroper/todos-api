@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
   # PUT /todos/:todo_id/items/:id
   def update
     @item.update(item_params)
-    head :no_content
+    json_response(@item, :accepted)
   end
 
   # DELETE /todos/:todo_id/items/:id
